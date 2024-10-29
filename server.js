@@ -2,20 +2,20 @@ const express = require("express");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-// const categoryRoutes = require("./routes/categoryRoutes");
-// const movieRoutes = require("./routes/movieRoutes");
-// const showtimeRoutes = require("./routes/showtimeRoutes");
-// const bookedRoutes = require("./routes/bookedRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
+const movieRoutes = require("./routes/movieRoutes");
+const showtimeRoutes = require("./routes/showtimeRoutes");
+const bookedRoutes = require("./routes/bookedRoutes");
 
 const app = express();
 
 app.use(express.json());
 
 // Routes
-// app.use("/categories", categoryRoutes);
-// app.use("/movies", movieRoutes);
-// app.use("/showtime", showtimeRoutes);
-// app.use("/booked", bookedRoutes);
+app.use("/categories", categoryRoutes);
+app.use("/movies", movieRoutes);
+app.use("/showtime", showtimeRoutes);
+app.use("/booked", bookedRoutes);
 
 // Basic route
 app.get("/", (req, res) => {
