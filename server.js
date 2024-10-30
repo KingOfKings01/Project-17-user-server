@@ -15,7 +15,7 @@ app.use(cors())
 // Routes
 app.use("/categories", categoryRoutes);
 app.use("/movies", movieRoutes);
-app.use("/booked", bookedRoutes);
+app.use("/booking", bookedRoutes);
 
 // Basic route
 app.get("/", (req, res) => {

@@ -1,24 +1,28 @@
-const { PrismaClient } = require('@prisma/client');
-const {showtime} = new PrismaClient();
+const { PrismaClient } = require("@prisma/client");
+const { movie } = new PrismaClient();
 
-// Get showtimes by movie ID
-const getShowtimesByMovieId = async (req, res) => {
+// Get movie and its showtimes by movie ID
+const getMovieAndShowtimesById = async (req, res) => {
   try {
     const { movieId } = req.params;
-    const showtimes = await showtime.findMany({
-      where: { movieId: parseInt(movieId) },
+
+    const foundMovie = await movie.findUnique({
+      where: { id: parseInt(movieId) },
+      include: {
+        showtimes: true, // Include showtimes
+      },
     });
 
-    if (!showtimes.length) {
-      return res.status(404).json({ message: 'No show times found for this movie' });
+    if (!foundMovie) {
+      return res.status(404).json({ message: "Movie not found" });
     }
 
-    res.status(200).json(showtimes);
+    res.status(200).json(foundMovie);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
 module.exports = {
-  getShowtimesByMovieId,
+  getMovieAndShowtimesById,
 };
