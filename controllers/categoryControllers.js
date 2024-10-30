@@ -12,6 +12,7 @@ const getAllCategoriesWithMovies = async (req, res) => {
 
     res.status(200).json(categories);
   } catch (error) {
+    console.log(error.message);
     res.status(500).json({ error: error.message });
   }
 };
