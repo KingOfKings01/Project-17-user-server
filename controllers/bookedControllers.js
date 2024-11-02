@@ -39,20 +39,22 @@ const createBooking = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-// Confirm booking
+
 const confirmBooking = async (req, res) => {
   try {
-    console.log("test");
     const { token } = req.params;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const bookingId = decoded.bookingId;
-
-    console.log("bookingId", bookingId);
 
     // Check if booking exists
     const foundBooking = await booked.findUnique({ where: { id: bookingId } });
     if (!foundBooking) {
       return res.status(404).json({ error: 'Booking not found' });
+    }
+
+    // Check if booking is already confirmed
+    if (foundBooking.isValid) {
+      return res.status(400).json({ error: 'Booking is already confirmed.' });
     }
 
     const updatedBooking = await booked.update({

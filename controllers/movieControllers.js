@@ -4,10 +4,9 @@ const { movie } = new PrismaClient();
 // Get movie and its showtimes by movie ID
 const getMovieAndShowtimesById = async (req, res) => {
   try {
-    const { movieId } = req.params;
-
+    const { id } = req.params;
     const foundMovie = await movie.findUnique({
-      where: { id: parseInt(movieId) },
+      where: { id: parseInt(id) },
       include: {
         showtimes: true, // Include showtimes
       },

@@ -20,3 +20,4 @@ const getAllCategoriesWithMovies = async (req, res) => {
 module.exports = {
   getAllCategoriesWithMovies,
 };
+
